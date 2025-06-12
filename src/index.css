@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+
+@plugin "tailwindcss-motion";
+
+@source inline('{bg,text}-{oxygen,nitrogen,carbon,silicon}-{1,2,3} {bg,text}-carbon-4');
+
+@font-face {
+  font-family: 'Monaspace Argon';
+  src: url('/fonts/monaspace/MonaspaceArgonVarVF[wght,wdth,slnt].ttf')
+    format('truetype');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-style: oblique 0deg 12deg;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Monaspace Krypton';
+  src: url('/fonts/monaspace/MonaspaceKryptonVarVF[wght,wdth,slnt].ttf')
+    format('truetype');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-style: oblique 0deg 12deg;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Monaspace Neon';
+  src: url('/fonts/monaspace/MonaspaceNeonVarVF[wght,wdth,slnt].ttf')
+    format('truetype');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-style: oblique 0deg 12deg;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Monaspace Radon';
+  src: url('/fonts/monaspace/MonaspaceRadonVarVF[wght,wdth,slnt].ttf')
+    format('truetype');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-style: oblique 0deg 12deg;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Monaspace Xenon';
+  src: url('/fonts/monaspace/MonaspaceXenonVarVF[wght,wdth,slnt].ttf')
+    format('truetype');
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-style: oblique 0deg 12deg;
+  font-display: swap;
+}
+
+@theme {
+  --font-*: initial;
+  --font-argon: 'Monaspace Argon', monospace;
+  --font-krypton: 'Monaspace Krypton', monospace;
+  --font-neon: 'Monaspace Neon', monospace;
+  --font-radon: 'Monaspace Radon', monospace;
+  --font-xenon: 'Monaspace Xenon', monospace;
+
+  --color-*: initial;
+
+  --color-carbon-1: #f6f6f6;
+  --color-carbon-2: #aaaaaa;
+  --color-carbon-3: #666666;
+  --color-carbon-4: #212121;
+
+  --color-silicon-1: #f9f2e0;
+  --color-silicon-2: #c4b186;
+  --color-silicon-3: #ad9a60;
+
+  --color-oxygen-1: #fcaebb;
+  --color-oxygen-2: #fa5f1f;
+  --color-oxygen-3: #ea1c0f;
+
+  --color-nitrogen-1: #a3c8d1;
+  --color-nitrogen-3: #0b22fa;
+  --color-nitrogen-2: #2373d2;
+}
+
+@layer base {
+  :root {
+    @apply text-[14px];
+  }
+  body {
+    @apply font-xenon bg-silicon-1 text-carbon-4;
+  }
+  ::selection {
+    @apply bg-nitrogen-3 text-nitrogen-3;
+  }
+}
+
+@layer components {
+  p {
+    @apply max-w-[75ch];
+  }
+}
