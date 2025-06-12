@@ -139,11 +139,11 @@ const Cursor: React.FC<CursorProps> = ({
 
   return (
     <motion.div
-      className={cn('absolute top-0 left-0 text-silicon-3', className)}
+      className={cn('absolute top-0 left-0 text-carbon-4', className)}
       style={{ x: posX, y: posY }}
       transition={{ duration: 1.5 }}
     >
-      <p className="absolute top-5 left-5 text-transparent bg-silicon-2 text-nowrap">
+      <p className="absolute top-5 left-5 text-transparent bg-carbon-3 text-nowrap">
         {memoizedDisplayName}
       </p>
       <svg className="size-5" viewBox="0 0 100 100">
