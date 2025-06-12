@@ -6,7 +6,7 @@ const Toast: React.FC<ToastProps> = memo(({ theme }) => {
   return (
     <div
       className={cn(
-        'flex bg-oxygen-2 w-full md:max-w-[364px] items-center p-2.5',
+        'relative flex bg-oxygen-2 w-full md:max-w-[364px] items-center p-2.5',
         theme?.bg
       )}
     >
