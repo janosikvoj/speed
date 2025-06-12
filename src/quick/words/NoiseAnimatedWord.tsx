@@ -126,7 +126,7 @@ const AnimatedWord: React.FC<AnimatedWordProps> = ({
     <span
       ref={wordRef}
       className={cn(
-        'inline-block transition-colors px-0.5',
+        'inline-block transition-colors px-1',
         randomRoundingClass,
         className
       )}
