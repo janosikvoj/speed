@@ -1,13 +1,9 @@
-import React, {
-  useEffect,
-  useState,
-  useMemo,
-  useRef,
-  useCallback,
-} from 'react';
+import React, { useEffect, useMemo, useRef, useCallback } from 'react';
 import { createNoise3D } from 'simplex-noise';
 import alea from 'alea';
 import { cn } from '../../lib/utils';
+import { useGlobalTimer } from '../../hooks/useGlobalTimer';
+import { random } from 'lodash';
 
 interface AnimatedWordProps {
   children?: React.ReactNode;
@@ -26,6 +22,8 @@ const colorGradient = [
   'oxygen-3',
 ];
 
+const randomRoundingClasses = ['rounded-full', 'rounded-none'];
+
 const AnimatedWord: React.FC<AnimatedWordProps> = ({
   children,
   className,
@@ -33,8 +31,10 @@ const AnimatedWord: React.FC<AnimatedWordProps> = ({
   animated = true,
 }) => {
   const wordRef = useRef<HTMLSpanElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [time, setTime] = useState(0);
+  const positionRef = useRef({ x: 0, y: 0 });
+  const lastColorRef = useRef<string>('inherit');
+
+  const { time } = useGlobalTimer(animated);
 
   // Create seeded noise instance once
   const noise3D = useMemo(() => {
@@ -42,69 +42,94 @@ const AnimatedWord: React.FC<AnimatedWordProps> = ({
     return createNoise3D(prng);
   }, [seed]);
 
-  // Update position from DOM element
+  // Update position (throttled)
   const updatePosition = useCallback(() => {
     if (wordRef.current) {
       const rect = wordRef.current.getBoundingClientRect();
-      setPosition({
+      positionRef.current = {
         x: rect.left + window.scrollX,
         y: rect.top + window.scrollY,
-      });
+      };
     }
   }, []);
 
-  // Set up position tracking
-  useEffect(() => {
-    updatePosition();
-
-    const handleResize = () => updatePosition();
-    const handleScroll = () => updatePosition();
-
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [updatePosition]);
-
-  // Animate time for dynamic colors
-  useEffect(() => {
-    if (!animated) return;
-
-    const interval = setInterval(() => {
-      setTime(Date.now() * 0.0001);
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, [animated]);
-
-  // Generate color based on position and time
-  const wordColor = useMemo(() => {
-    if (position.x === 0 && position.y === 0) return 'inherit';
+  // Generate color and update DOM directly
+  const updateColor = useCallback(() => {
+    if (
+      !wordRef.current ||
+      (positionRef.current.x === 0 && positionRef.current.y === 0)
+    ) {
+      return;
+    }
 
     const scale = 0.002;
-    const timeOffset = animated ? time : 0;
+    const timeOffset = animated ? time * 0.1 : 0; // Slow down time effect
 
-    const noise = noise3D(position.x * scale, position.y * scale, timeOffset);
+    const noise = noise3D(
+      positionRef.current.x * scale,
+      positionRef.current.y * scale,
+      timeOffset
+    );
 
     const normalizedNoise = (noise + 1) / 2;
     const colorIndex = Math.round(normalizedNoise * (colorGradient.length - 1));
+    const color = `var(--color-${colorGradient[colorIndex]})`;
 
-    return `var(--color-${colorGradient[colorIndex]})`;
-  }, [position.x, position.y, time, noise3D, animated]);
-
-  useEffect(() => {
-    if (wordRef.current) {
-      wordRef.current.style.backgroundColor = wordColor;
+    // Only update DOM if color actually changed
+    if (color !== lastColorRef.current) {
+      wordRef.current.style.backgroundColor = color;
+      lastColorRef.current = color;
     }
-  }, [wordColor]);
+  }, [noise3D, animated, time]);
+
+  // Setup position tracking
+  useEffect(() => {
+    updatePosition();
+
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+    const throttledScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        updatePosition();
+        updateColor();
+      }, 16);
+    };
+
+    const debouncedResize = () => {
+      setTimeout(() => {
+        updatePosition();
+        updateColor();
+      }, 100);
+    };
+
+    window.addEventListener('scroll', throttledScroll, { passive: true });
+    window.addEventListener('resize', debouncedResize);
+
+    return () => {
+      window.removeEventListener('scroll', throttledScroll);
+      window.removeEventListener('resize', debouncedResize);
+      clearTimeout(scrollTimeout);
+    };
+  }, [updatePosition, updateColor]);
+
+  // Update color when time changes
+  useEffect(() => {
+    updateColor();
+  }, [updateColor]);
+
+  const randomRoundingClass = useMemo(
+    () => randomRoundingClasses[random(randomRoundingClasses.length - 1)],
+    []
+  );
 
   return (
     <span
       ref={wordRef}
-      className={cn('inline-block px-2.5 transition-colors', className)}
+      className={cn(
+        'inline-block transition-colors px-0.5',
+        randomRoundingClass,
+        className
+      )}
     >
       {children}
     </span>
