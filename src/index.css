@@ -6,8 +6,7 @@
 
 @font-face {
   font-family: 'Monaspace Argon';
-  src: url('/fonts/monaspace/MonaspaceArgonVarVF[wght,wdth,slnt].ttf')
-    format('truetype');
+  src: url('/fonts/MonaspaceArgonVarVF[wght,wdth,slnt].ttf') format('truetype');
   font-weight: 200 900;
   font-stretch: 75% 125%;
   font-style: oblique 0deg 12deg;
@@ -16,7 +15,7 @@
 
 @font-face {
   font-family: 'Monaspace Krypton';
-  src: url('/fonts/monaspace/MonaspaceKryptonVarVF[wght,wdth,slnt].ttf')
+  src: url('/fonts/MonaspaceKryptonVarVF[wght,wdth,slnt].ttf')
     format('truetype');
   font-weight: 200 900;
   font-stretch: 75% 125%;
@@ -26,8 +25,7 @@
 
 @font-face {
   font-family: 'Monaspace Neon';
-  src: url('/fonts/monaspace/MonaspaceNeonVarVF[wght,wdth,slnt].ttf')
-    format('truetype');
+  src: url('/fonts/MonaspaceNeonVarVF[wght,wdth,slnt].ttf') format('truetype');
   font-weight: 200 900;
   font-stretch: 75% 125%;
   font-style: oblique 0deg 12deg;
@@ -36,8 +34,7 @@
 
 @font-face {
   font-family: 'Monaspace Radon';
-  src: url('/fonts/monaspace/MonaspaceRadonVarVF[wght,wdth,slnt].ttf')
-    format('truetype');
+  src: url('/fonts/MonaspaceRadonVarVF[wght,wdth,slnt].ttf') format('truetype');
   font-weight: 200 900;
   font-stretch: 75% 125%;
   font-style: oblique 0deg 12deg;
@@ -46,8 +43,7 @@
 
 @font-face {
   font-family: 'Monaspace Xenon';
-  src: url('/fonts/monaspace/MonaspaceXenonVarVF[wght,wdth,slnt].ttf')
-    format('truetype');
+  src: url('/fonts/MonaspaceXenonVarVF[wght,wdth,slnt].ttf') format('truetype');
   font-weight: 200 900;
   font-stretch: 75% 125%;
   font-style: oblique 0deg 12deg;

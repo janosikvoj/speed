@@ -38,6 +38,8 @@ const textTransitions = [
     animate: { rotateY: 360 },
     transition: { repeat: Infinity, duration: 5, repeatDelay: 0.5 },
   },
+  // No transition
+  {},
 ];
 
 interface WordProps {

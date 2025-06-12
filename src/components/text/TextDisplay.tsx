@@ -23,8 +23,8 @@ const TextDisplay = () => {
       <h1 className="text-6xl md:text-8xl font-neon font-bold mb-8">
         The meaning of life is:
       </h1>
-      {processedParagraphs.map((paragraph) => (
-        <Paragraph>{paragraph}</Paragraph>
+      {processedParagraphs.map((paragraph, i) => (
+        <Paragraph key={i}>{paragraph}</Paragraph>
       ))}
     </>
   );
