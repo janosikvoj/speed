@@ -5,30 +5,30 @@ import { cn } from '../../lib/utils';
 import { useGlobalTimer } from '../../hooks/useGlobalTimer';
 import { random } from 'lodash';
 
-interface AnimatedWordProps {
+interface SimplexColorProps {
   children?: React.ReactNode;
   className?: string;
-  seed?: string; // Allow custom seeding for different effects
-  animated?: boolean; // Toggle time-based animation
+  seed?: string;
+  animated?: boolean;
+  colors?: string[];
 }
-
-const colorGradient = [
-  'nitrogen-3',
-  'nitrogen-2',
-  'nitrogen-1',
-  'carbon-1',
-  'oxygen-1',
-  'oxygen-2',
-  'oxygen-3',
-];
 
 const randomRoundingClasses = ['rounded-full', 'rounded-none'];
 
-const AnimatedWord: React.FC<AnimatedWordProps> = ({
+const SimplexColor: React.FC<SimplexColorProps> = ({
   children,
   className,
   seed = 'default-seed',
   animated = true,
+  colors = [
+    'nitrogen-3',
+    'nitrogen-2',
+    'nitrogen-1',
+    'carbon-1',
+    'oxygen-1',
+    'oxygen-2',
+    'oxygen-3',
+  ],
 }) => {
   const wordRef = useRef<HTMLSpanElement>(null);
   const positionRef = useRef({ x: 0, y: 0 });
@@ -72,15 +72,15 @@ const AnimatedWord: React.FC<AnimatedWordProps> = ({
     );
 
     const normalizedNoise = (noise + 1) / 2;
-    const colorIndex = Math.round(normalizedNoise * (colorGradient.length - 1));
-    const color = `var(--color-${colorGradient[colorIndex]})`;
+    const colorIndex = Math.round(normalizedNoise * (colors.length - 1));
+    const color = `var(--color-${colors[colorIndex]})`;
 
     // Only update DOM if color actually changed
     if (color !== lastColorRef.current) {
       wordRef.current.style.backgroundColor = color;
       lastColorRef.current = color;
     }
-  }, [noise3D, animated, time]);
+  }, [noise3D, animated, time, colors]);
 
   // Setup position tracking
   useEffect(() => {
@@ -126,7 +126,7 @@ const AnimatedWord: React.FC<AnimatedWordProps> = ({
     <span
       ref={wordRef}
       className={cn(
-        'inline-block transition-colors px-1',
+        'inline-block transition-colors px-1 m-px',
         randomRoundingClass,
         className
       )}
@@ -136,4 +136,4 @@ const AnimatedWord: React.FC<AnimatedWordProps> = ({
   );
 };
 
-export default AnimatedWord;
+export default SimplexColor;

@@ -1,9 +1,9 @@
 import { Toaster } from 'sonner';
-import Headless from './quick/toast';
-import VaulDrawer from './quick/drawer';
-import UserSystem from './quick/users/UserSystem';
-import SlowText from './slow/SlowText';
-import { GlobalTimerProvider } from './providers/GlobalTimerProvider';
+import Headless from './components/toast';
+import VaulDrawer from './components/drawer';
+import UserSystem from './components/users/UserSystem';
+import { GlobalTimerProvider } from './components/providers/GlobalTimerProvider';
+import TextDisplay from './components/text/TextDisplay';
 
 function App() {
   return (
@@ -15,9 +15,9 @@ function App() {
           <VaulDrawer />
         </div>
         <main className="flex justify-center max-w-screen py-45 px-5">
-          <section className="relative">
+          <section className="relative max-w-[100ch]">
             <UserSystem />
-            <SlowText />
+            <TextDisplay />
           </section>
         </main>
       </GlobalTimerProvider>

@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { TimerContext, type TimerContextValue } from '../contexts/TimerContext';
+import {
+  TimerContext,
+  type TimerContextValue,
+} from '../../contexts/TimerContext';
 
 export const GlobalTimerProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

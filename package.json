@@ -10,9 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mdx-js/rollup": "^3.1.0",
     "@tailwindcss/vite": "^4.1.8",
-    "@types/mdx": "^2.0.13",
     "alea": "^1.0.1",
     "clsx": "^2.1.1",
     "lodash": "^4.17.21",

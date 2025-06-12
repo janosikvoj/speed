@@ -93,9 +93,3 @@
     @apply bg-nitrogen-3 text-nitrogen-3;
   }
 }
-
-@layer components {
-  p {
-    @apply max-w-[75ch];
-  }
-}
