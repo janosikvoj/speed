@@ -21,7 +21,7 @@ const TextDisplay = () => {
   return (
     <>
       <h1 className="text-6xl md:text-8xl font-neon font-bold mb-8">
-        The meaning of life is:
+        smysl života:
       </h1>
       {processedParagraphs.map((paragraph, i) => (
         <Paragraph key={i}>{paragraph}</Paragraph>
